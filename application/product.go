@@ -37,7 +37,11 @@ func (p *Product) Enable() error {
 }
 
 func (p *Product) Disable() error {
-	return nil
+	if p.Price == 0 {
+		p.Status = DISABLED
+		return nil
+	}
+	return errors.New("price must be zero to disable the product")
 }
 
 func (p *Product) GetId() string {
