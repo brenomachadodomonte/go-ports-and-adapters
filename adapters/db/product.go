@@ -27,3 +27,23 @@ func (p *ProductDb) Get(id string) (application.ProductInterface, error) {
 	}
 	return &product, nil
 }
+
+func (p *ProductDb) create(product application.ProductInterface) (application.ProductInterface, error) {
+	stmt, err := p.db.Prepare("insert into products(id, name, price, status) values (?, ?, ?, ?)")
+
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = stmt.Exec(product.GetId(), product.GetName(), product.GetPrice(), product.GetStatus())
+	if err != nil {
+		return nil, err
+	}
+
+	err = stmt.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return product, nil
+}
