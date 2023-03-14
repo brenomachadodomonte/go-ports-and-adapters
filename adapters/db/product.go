@@ -28,6 +28,15 @@ func (p *ProductDb) Get(id string) (application.ProductInterface, error) {
 	return &product, nil
 }
 
+func (p *ProductDb) Save(product application.ProductInterface) (application.ProductInterface, error) {
+	var rows int
+	p.db.QueryRow("select id from products where id=?", product.GetId()).Scan(&rows)
+	if rows == 0 {
+		return p.create(product)
+	}
+	return p.update(product)
+}
+
 func (p *ProductDb) create(product application.ProductInterface) (application.ProductInterface, error) {
 	stmt, err := p.db.Prepare("insert into products(id, name, price, status) values (?, ?, ?, ?)")
 
@@ -45,5 +54,14 @@ func (p *ProductDb) create(product application.ProductInterface) (application.Pr
 		return nil, err
 	}
 
+	return product, nil
+}
+
+func (p *ProductDb) update(product application.ProductInterface) (application.ProductInterface, error) {
+	_, err := p.db.Exec("update products set name=?, price=?, status=? where id=?",
+		product.GetName(), product.GetPrice(), product.GetPrice(), product.GetId())
+	if err != nil {
+		return nil, err
+	}
 	return product, nil
 }
