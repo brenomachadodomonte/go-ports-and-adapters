@@ -31,7 +31,6 @@ func (p *ProductDb) Get(id string) (application.ProductInterface, error) {
 func (p *ProductDb) Save(product application.ProductInterface) (application.ProductInterface, error) {
 	var rows int
 	p.db.QueryRow("select 1 from products where id=?;", product.GetId()).Scan(&rows)
-	println(rows)
 	if rows == 0 {
 		return p.create(product)
 	}
