@@ -28,7 +28,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		result, err := cli.Run(productService, action, productId, productName, productPrice)
 		if err != nil {
-			fmt.Println("Erro ao realizar comando")
+			fmt.Println("E rro ao realizar comando")
 		} else {
 			fmt.Println(result)
 		}
