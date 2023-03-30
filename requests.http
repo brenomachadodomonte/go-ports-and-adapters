@@ -1,0 +1,9 @@
+### Creating a new Product
+POST {{host}}/product
+Content-Type: application/json
+
+{
+  "name": "Teste de Http",
+  "price": 25.99
+}
+
