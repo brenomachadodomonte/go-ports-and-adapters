@@ -7,3 +7,11 @@ Content-Type: application/json
   "price": 25.99
 }
 
+### Getting a Product
+GET {{host}}/product/d96183b2-45f5-4565-915f-6fdced9d9383
+
+### Enabling a Product
+GET {{host}}/product/d96183b2-45f5-4565-915f-6fdced9d9383/enable
+
+### Disabling a Product
+GET {{host}}/product/d96183b2-45f5-4565-915f-6fdced9d9383/disable
